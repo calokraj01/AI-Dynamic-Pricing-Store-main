@@ -11,3 +11,5 @@ passlib==1.7.4
 bcrypt==4.0.1
 sqlalchemy==1.4.53
 alembic==1.11.3
+PyJWT==2.8.0
+email-validator==2.1.0
