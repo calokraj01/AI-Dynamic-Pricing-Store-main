@@ -6,11 +6,12 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from database import get_db, User
+import os
 
 # Security configuration
-SECRET_KEY = "your-secret-key-here-change-in-production"  # Change this in production!
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", os.getenv("SECRET_KEY", "fc0cc4aaf8994414a33274832828a98d07ffe151b3ff5086339d4ce4a03fe02f"))
+ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "30"))
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
