@@ -63,7 +63,7 @@ const ProductListing: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '');
 
   const fetchProducts = async () => {
     try {

@@ -456,10 +456,61 @@ async def startup_event():
     print("🚀 AI Dynamic Pricing API Starting...")
     print("="*60)
     
-    # Create database tables
+    # Create database tables and auto-seed admin and products if empty
     try:
         create_tables()
         print("✅ Database tables initialized successfully!")
+        
+        from database import SessionLocal
+        db = SessionLocal()
+        try:
+            # Seed default admin if missing
+            admin_user = db.query(User).filter(User.username == "admin").first()
+            if not admin_user:
+                admin_pw_hash = pwd_context.hash("admin123")
+                new_admin = User(
+                    email="admin@example.com",
+                    username="admin",
+                    full_name="System Administrator",
+                    hashed_password=admin_pw_hash,
+                    role="admin",
+                    is_active=True,
+                    phone="+1234567890",
+                    address="123 Admin Street, Admin City"
+                )
+                db.add(new_admin)
+                db.commit()
+                print("✅ Default admin user verified/created (admin / admin123)!")
+
+            # Seed products from dataset.csv if table is empty
+            product_count = db.query(Product).count()
+            if product_count == 0 and os.path.exists("dataset.csv"):
+                print("🌱 Seeding products from dataset.csv...")
+                df_seed = pd.read_csv("dataset.csv")
+                for _, row in df_seed.iterrows():
+                    p = Product(
+                        product_id=int(row['product_id']),
+                        product_name=str(row['product_name']),
+                        category=str(row['category']),
+                        base_price=float(row['base_price']),
+                        inventory_level=int(row['inventory_level']),
+                        competitor_avg_price=float(row['competitor_avg_price']),
+                        sales_last_30_days=int(row['sales_last_30_days']),
+                        rating=float(row['rating']),
+                        review_count=int(row['review_count']),
+                        season=str(row['season']),
+                        brand_tier=str(row['brand_tier']),
+                        material_cost=float(row['material_cost']),
+                        target_price=float(row['target_price']),
+                        description=f"High-quality {row['product_name']} in {row['category']} category",
+                        image_url=None,
+                        is_active=True
+                    )
+                    db.add(p)
+                db.commit()
+                print(f"✅ Successfully seeded {len(df_seed)} products into database!")
+        finally:
+            db.close()
     except Exception as e:
         print(f"⚠️  Database initialization warning: {str(e)}")
     
@@ -541,6 +592,7 @@ async def root():
 
 # Authentication endpoints
 @app.post("/auth/login", response_model=Token)
+@app.post("//auth/login", response_model=Token, include_in_schema=False)
 async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
     """Login user and return access token"""
     user = authenticate_user(user_credentials.username, user_credentials.password, db)
