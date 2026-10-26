@@ -285,7 +285,7 @@ export class ChatbotEngine {
       const faqItem = this.knowledge.faq.find(item => 
         item.question.toLowerCase().includes('accurate')
       );
-      return `📈 **AI Accuracy & Performance:**\n\n${faqItem.answer}\n\n🔍 **Additional Details:**\n• Model Type: Random Forest Regressor\n• Training Features: ${this.knowledge.dynamicPricing.factors.length}+ data points\n• Continuous Learning: Yes, the model improves over time\n• Performance Monitoring: Available in the Performance dashboard\n\nYou can view real-time model metrics in the Performance section!`;
+      return `📈 **AI Accuracy & Performance:**\n\n${faqItem?.answer || ''}\n\n🔍 **Additional Details:**\n• Model Type: Random Forest Regressor\n• Training Features: ${this.knowledge.dynamicPricing.factors.length}+ data points\n• Continuous Learning: Yes, the model improves over time\n• Performance Monitoring: Available in the Performance dashboard\n\nYou can view real-time model metrics in the Performance section!`;
     }
 
     // Security questions
@@ -293,7 +293,7 @@ export class ChatbotEngine {
       const faqItem = this.knowledge.faq.find(item => 
         item.question.toLowerCase().includes('secure')
       );
-      return `🔐 **Security & Data Protection:**\n\n${faqItem.answer}\n\n🛡️ **Security Measures:**\n• JWT Authentication\n• Encrypted data transmission\n• Secure database storage\n• Regular security audits\n• Privacy-first approach\n\nYour data and privacy are our top priorities!`;
+      return `🔐 **Security & Data Protection:**\n\n${faqItem?.answer || ''}\n\n🛡️ **Security Measures:**\n• JWT Authentication\n• Encrypted data transmission\n• Secure database storage\n• Regular security audits\n• Privacy-first approach\n\nYour data and privacy are our top priorities!`;
     }
 
     // Price limits questions
@@ -301,7 +301,7 @@ export class ChatbotEngine {
       const faqItem = this.knowledge.faq.find(item => 
         item.question.toLowerCase().includes('limits')
       );
-      return `⚙️ **Price Limits & Controls:**\n\n${faqItem.answer}\n\n🎛️ **Available Controls:**\n• Set minimum price thresholds\n• Configure maximum price caps\n• Define percentage change limits\n• Manual override capabilities\n• Real-time monitoring alerts\n\nThis ensures the AI stays within your business parameters!`;
+      return `⚙️ **Price Limits & Controls:**\n\n${faqItem?.answer || ''}\n\n🎛️ **Available Controls:**\n• Set minimum price thresholds\n• Configure maximum price caps\n• Define percentage change limits\n• Manual override capabilities\n• Real-time monitoring alerts\n\nThis ensures the AI stays within your business parameters!`;
     }
 
     // FAQ search

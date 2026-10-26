@@ -40,7 +40,6 @@ export class MLService {
         : product.current_price;
 
       const recentSalesVolume = salesData.reduce((sum, sale) => sum + sale.quantity_sold, 0);
-      const inventoryRatio = product.inventory / 100; // Normalize inventory
 
       // Simple pricing algorithm simulation
       let priceFactor = 1.0;
@@ -143,7 +142,7 @@ export class MLService {
   }
 
   // Start real-time price optimization
-  static startPriceOptimization(): NodeJS.Timeout {
+  static startPriceOptimization(): ReturnType<typeof setInterval> {
     // Run price updates every 30 seconds
     return setInterval(async () => {
       try {

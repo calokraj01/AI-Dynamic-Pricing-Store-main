@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/AuthContext';
-import { apiService, RegisterRequest } from '../../services/apiService';
+import { apiService } from '../../services/apiService';
 
 interface RegisterFormData {
   email: string;

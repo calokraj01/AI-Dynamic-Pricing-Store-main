@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { apiService, Cart, CartItem } from '../services/apiService';
+import { apiService, Cart } from '../services/apiService';
 import { useAuth } from './AuthContext';
 
 interface CartContextType {

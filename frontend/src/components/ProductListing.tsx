@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { TrendingUp, TrendingDown, Star, Package, Search, Filter, SortAsc, SortDesc, Grid, List, ShoppingCart, Heart } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { TrendingUp, TrendingDown, Star, Package, Search, Filter, SortAsc, Grid, List, ShoppingCart, Heart } from 'lucide-react';
 import { apiService } from '../services/apiService';
 
 interface Product {
@@ -47,7 +46,6 @@ const ProductListing: React.FC = () => {
       setAddingToWishlist(null);
     }
   };
-  const { user } = useAuth();
   
   // Search and Filter States
   const [searchQuery, setSearchQuery] = useState('');
@@ -56,7 +54,6 @@ const ProductListing: React.FC = () => {
   const [ratingFilter, setRatingFilter] = useState(0);
   const [sortBy, setSortBy] = useState('name'); // name, price-low, price-high, rating, newest
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [showFilters, setShowFilters] = useState(false);
   
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

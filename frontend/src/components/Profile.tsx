@@ -30,7 +30,7 @@ const Profile: React.FC = () => {
 
       // For summary, fetch a simplified orders list
       const response = await apiService.getUserOrders();
-      setOrders(response.orders || []);
+      setOrders((response.orders as any) || []);
     } catch (err) {
       console.error('Failed to fetch profile data:', err);
     }

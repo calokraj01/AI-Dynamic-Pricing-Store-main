@@ -10,10 +10,6 @@ import {
   ChevronDownIcon,
   SparklesIcon
 } from '@heroicons/react/24/outline';
-import {
-  ShoppingCartIcon as ShoppingCartSolid,
-  HeartIcon as HeartSolid
-} from '@heroicons/react/24/solid';
 import { useAuth } from '../../contexts/AuthContext';
 import ThemeToggle from '../ThemeToggle';
 
